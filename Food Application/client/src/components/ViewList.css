@@ -1,0 +1,39 @@
+.menu {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dots {
+    width: 3px;
+    height: 3px;
+    background-color: #333;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .dropdown {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 0;
+    list-style: none;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown li {
+    padding: 8px;
+  }
+  
+  .dropdown li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+  }
+  
+  .menu:hover .dropdown {
+    display: block;
+  }
+  .dropdown li:hover{
+    background: rgba(126, 122, 122,0.5);
+  }
