@@ -1,0 +1,36 @@
+.react-flow .react-flow__handle {
+    width: 20px;
+    height: 1px;
+    border-radius: 3px;
+    background-color: #784be8;
+  }
+  
+  .react-flow .react-flow__handle-top {
+    top: -5px;
+  }
+  
+  .react-flow .react-flow__handle-bottom {
+    bottom: -5px;
+  }
+  
+  .react-flow .react-flow__node {
+    height: 30px;
+    width: 120px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    /* border-width: 1px solid rgb(248, 242, 242); */
+    font-weight: 500;
+    border-color: #9a7ce6; 
+  }
+  
+  .react-flow .react-flow__edge path,
+  .react-flow__connectionline path {
+    stroke-width: 1;
+  }
+  
+  .wrapper {
+    flex-grow: 1;
+    height: 100%;
+  }
+  
