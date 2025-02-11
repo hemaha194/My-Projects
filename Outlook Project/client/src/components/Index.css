@@ -1,0 +1,54 @@
+.icon{
+    color: white;
+    font-size:30px ;
+    padding: 10px;
+}
+.bar1 span{
+    color:#0078d4;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+}
+.bar2{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.bar2 span{
+    font-size: 20px;
+    padding: 10px;
+    cursor: pointer;
+}
+.bar3 span{
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    cursor: pointer;
+}
+.bar1 span:hover{
+    background-color: rgba(124, 119, 119,0.1);
+    border-radius: 5px;
+}
+.bar2 span:hover{
+    background-color: rgba(124, 119, 119,0.1);
+    border-radius: 5px;
+}
+.bar3 span:hover{
+    background-color: rgba(112, 111, 111,0.3);
+    border-radius: 3px;
+    /* color: whitesmoke; */
+}
+
+.bar4 span{
+    padding : 5px;
+    color:grey;
+    cursor: pointer;
+    color: rgb(61, 61, 241);
+}
+
+.mails{
+    overflow: hidden;
+}
+.mails:hover{
+    overflow-y: scroll;
+}
