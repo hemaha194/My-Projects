@@ -18,4 +18,9 @@
 4) OUTLOOK PROJECT :
     * Technologies used - React.js , Django , PostgreSQL
     * Aim of the project :
-        The Outlook project is a web application for sending emails, allowing the host to send messages to real-time users. Additionally, users can view all emails and related information in their inbox as well as the admin inbox.
+        The Outlook project is a web application for sending emails, allowing the host to send messages to real-time users. Additionally, users can view all emails and related information in their inbox as 
+        well as the admin inbox.
+
+5) VOCAL METRIX PROJECT :
+   Utilized FFMPEG and Pydub for to analyze speech within a video by extracting audio, determining syllable count, detecting pauses, extracting phrases, and calculating dB values. The ultimate goal is to 
+   provide a summary with suggestions for improving speech quality.
