@@ -22,5 +22,7 @@
         well as the admin inbox.
 
 5) VOCAL METRIX PROJECT :
-   Utilized FFMPEG and Pydub for to analyze speech within a video by extracting audio, determining syllable count, detecting pauses, extracting phrases, and calculating dB values. The ultimate goal is to 
-   provide a summary with suggestions for improving speech quality.
+   * Technologies used - Python ,FFMPEG
+   * Aim of the project :
+     Utilized FFMPEG and Pydub for to analyze speech within a video by extracting audio, determining syllable count, detecting pauses, extracting phrases, and calculating dB values. The ultimate goal is to 
+     provide a summary with suggestions for improving speech quality.
