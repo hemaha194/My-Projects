@@ -2,12 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./ViewList.css";
-import {Dialog} from "primereact/dialog"
+import {Dialog} from "primereact/dialog";
+import { useNavigate, useParams } from "react-router-dom";
 function ViewList(){
     const [data,getData]=useState([])
     const [filterValue,filterUpdate]=useState("")
     const [visible,setVisible]=useState(false)
+    const [buyVisible,setBuyVisible]=useState(false)
     const [sdata,storedata]=useState({})
+    const navigate=useNavigate()
 
     useEffect(()=>{
         if(filterValue==="thisWeek"){
@@ -60,11 +63,81 @@ function ViewList(){
         setVisible(false)
     }
 
+    function openBuyDialog(){
+        setBuyVisible(true)
+    }
+
+    function closeBuyDialog(){
+        setBuyVisible(false)
+    }
+
     function viewData(id){
         axios.get(`http://127.0.0.1:8000/recipe/api/${id}`).then(
             res=>storedata(res.data)
         )
     }
+
+    function createOrder(item){
+        const orderData={
+            name:item.r_name,
+            amount:item.r_price,
+            recipe_id:item.id
+        }
+        axios.post("http://127.0.0.1:8000/recipe/order",orderData).then(
+            res => {
+                console.log(res.data,"order created successfully")
+            }
+        )
+    }
+
+    function handlePayment(id){
+        console.log(id)
+        axios.get(`http://127.0.0.1:8000/recipe/order/${id}`).then(
+            res =>{
+                console.log(res.data,"order data")
+                const orderDetails = res.data;
+                const options = {
+                    key: "rzp_test_JlXHTmBdXKzDx1", // from Razorpay dashboard
+                    amount: orderDetails.amount * 100,
+                    currency: "INR",
+                    name: "Acme Corp",
+                    description: "Test Transaction",
+                    // image: "https://example.com/your_logo.jpg",
+                    order_id: orderDetails.order_id, // from backend
+                    handler: function (response) {
+
+                        axios.post("http://127.0.0.1:8000/recipe/payment-success", {
+                            order_id : orderDetails.order_id,
+                            razorpay_payment_id: response.razorpay_payment_id,
+                            // razorpay_order_id: response.razorpay_order_id,
+                            // razorpay_signature: response.razorpay_signature
+                        })
+                        .then(res => {
+                            alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+                            console.log("Payment saved successfully:", res.data);
+                            setBuyVisible(false)
+                            
+                        })
+                        .catch(err => {
+                            console.error("Error saving payment:", err);
+                        });
+
+
+                    },
+                    prefill: {
+                        name: "maha",
+                        email: "maha@example.com",
+                    },
+                    theme: {
+                        color: "#F37254",
+                    },
+                    };
+
+                    const rzp = new window.Razorpay(options);
+                    rzp.open();
+                            }
+                        )
+                }
     
     return(
         <div style={{display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
@@ -96,17 +169,24 @@ function ViewList(){
                                                     deleteHandler(item.id)
                                                 }}>Delete</Link></li>
                                             </ul>
-                                    </div>
+                                        </div>
                                     <img src={item.r_img} className="card-img-top" alt="figure not found" style={{height:"250px"}}></img>
                                 </div>
                                 <div class="card-body">
                                     <h4>{item.r_name}</h4>
                                     <div style={{height:"150px",overflow:"hidden",marginBottom:"2px"}}><p>{item.r_description}</p></div>
                                     <p><span style={{color:"rgba(31, 29, 29, 0.733)"}}>{item.r_type}</span></p>
-                                    <div style={{display:"flex",justifyContent:"end"}}><button className="btn btn-primary btn-sm" onClick={()=>{
-                                        openDialog()
-                                        viewData(item.id)
-                                    }}>View</button></div>
+                                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                                        <button className="btn btn-primary btn-sm" onClick={()=>{
+                                            openBuyDialog()
+                                            createOrder(item)
+                                            viewData(item.id)
+                                        }}>Buy</button>
+                                        <button className="btn btn-primary btn-sm" onClick={()=>{
+                                            openDialog()
+                                            viewData(item.id)
+                                        }}>View</button>
+                                    </div>
                                     <Dialog visible={visible} style={{ width: '50vw' }} onHide={closeDialog}>
                                         <div className="container" style={{border:"1px solid grey"}}>
                                             <br/>
@@ -124,6 +204,32 @@ function ViewList(){
                                                 </div>
                                                 <div className="row">
                                                     <div className="col">Created at</div><div className="col">{sdata.r_created_at}</div>
+                                                </div>
+                                            </div>
+                                            <br/>
+                                        </div>
+                                    </Dialog>
+
+                                    <Dialog visible={buyVisible} style={{ width: '50vw' }} onHide={closeBuyDialog}>
+                                        <div className="container" style={{border:"1px solid grey"}}>
+                                            <br/>
+                                            <center><img src={sdata.r_img} style={{height:"150px",width:"250px",borderRadius:"20%"}}/></center><br/>
+                                            <br/>
+                                            <div className="container">
+                                                <div className="row">
+                                                    <div className="col">Recipe Name </div><div className="col">{sdata.r_name}</div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col">Description </div><div className="col">{sdata.r_description}</div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col">Type of dish</div><div className="col">{sdata.r_type}</div>
+                                                </div>
+                                                <div className="row">
+                                                    <div className="col">Price</div><div className="col" style={{fontWeight:"bolder"}}>&#8377;{sdata.r_price}</div>
+                                                </div>
+                                                <div style={{marginTop:"20px"}} onClick={()=>{handlePayment(sdata.id)}}>
+                                                    <div className="btn btn-primary btn-sm">Pay with Razorpay</div>
                                                 </div>
                                             </div>
                                             <br/>

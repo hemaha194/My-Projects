@@ -87,16 +87,27 @@ WSGI_APPLICATION = 'server.wsgi.application'
 #                 # 'HOST':'localhost',
 #                 # 'PORT':'3306',
 #                 }
-#             }
+#             }     
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'recipeepro',
+#         'USER': 'root',
+#         'PASSWORD': 'asdf1234',
+#         'HOST':'localhost',
+#         'PORT':'3306',
+#     }
+# }
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'recipeepro',
-        'USER': 'root',
-        'PASSWORD': 'asdf1234',
-        'HOST':'localhost',
-        'PORT':'3306',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "foodApplication",
+        "USER": "postgres",
+        "PASSWORD": "asdf1234",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
