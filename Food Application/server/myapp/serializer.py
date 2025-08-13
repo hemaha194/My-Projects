@@ -6,4 +6,7 @@ class serializeRecipe(serializers.ModelSerializer):
         model=RecipeTable
         fields="__all__"
 
-    
+class serializeOrder(serializers.ModelSerializer):
+    class Meta:
+        model = Orders
+        fields = "__all__" 

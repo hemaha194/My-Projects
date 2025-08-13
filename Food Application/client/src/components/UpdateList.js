@@ -39,7 +39,7 @@ function UpdateList(){
                             <center><img src={data.r_img} className="card-img-top" alt="..." style={{width:"250px",height:"250px",borderRadius:"50%"}}/></center>
                             <div className="card-body">
                                 <form onSubmit={formHandler}>
-                                <table style={{height:"100%",width:"85%",marginLeft:"150px"}}>++
+                                <table style={{height:"100%",width:"85%",marginLeft:"150px"}}>
                                     <tr>
                                         <td><center><label >Image:</label></center></td>
                                         <td><input type="text" className="form-control w-50" value={data.r_img} onChange={(e)=>{
@@ -76,6 +76,13 @@ function UpdateList(){
                                     <tr>
                                         <td><center><label >Created At :</label></center></td>
                                         <td><input  type="date" className="form-control w-50" value={data.r_created_at}/></td>
+                                    </tr>
+                                    <br/>
+                                    <tr>
+                                        <td><center><label >Amount :</label></center></td>
+                                        <td><input  type="text" className="form-control w-50" value={data.r_price} onChange={(e)=>{
+                                            setData({...data,r_price:e.target.value})
+                                        }}/></td>
                                     </tr>
                                     <br/>
                                 </table>

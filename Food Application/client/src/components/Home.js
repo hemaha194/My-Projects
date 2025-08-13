@@ -14,7 +14,7 @@ function Home(){
             res=>{
                 console.log(res.data)
             alert("Data submited successfully...")
-            addData({r_name:'',r_description:'',r_type:'',r_created_at:'',r_img:''})
+            addData({r_name:'',r_description:'',r_type:'',r_created_at:'',r_img:'', r_price:''})
             console.log(data)
         }
         ).catch(error=>console.error(error))
@@ -70,6 +70,13 @@ function Home(){
                     <tr>
                         <td><center><label  >Recipe image :</label></center></td>
                         <td><input  type="text" className="form-control w-50" placeholder="input as image url"  value={data.r_img} onChange={(e)=>{
+                            addData({...data,r_img:e.target.value})
+                        }}/></td>
+                    </tr>
+                    <br/>
+                    <tr>
+                        <td><center><label  >Amount :</label></center></td>
+                        <td><input  type="text" className="form-control w-50"  value={data.r_price} onChange={(e)=>{
                             addData({...data,r_img:e.target.value})
                         }}/></td>
                     </tr>
