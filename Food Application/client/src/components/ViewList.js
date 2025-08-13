@@ -17,6 +17,7 @@ function ViewList(){
                 }
             )
         }
+
         else if(filterValue==="lastWeek"){
             axios.get(`http://127.0.0.1:8000/recipe/api/${filterValue}`).then(
                 response=>{
